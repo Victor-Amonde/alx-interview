@@ -4,8 +4,8 @@ Change comes from within
 """
 
 
-def makeChange(coins, total):
-    """
+"""def makeChange(coins, total):
+    
     Given a pile of coins of different values, determine the fewest
     number of coins needed to meet a given amount total.
 
@@ -17,7 +17,7 @@ def makeChange(coins, total):
         - The value of a coin will always be an integer greater than 0
         - You can assume you have an infinite number of each denomination of
         coin in the list
-    """
+    
     if total <= 0:
         return 0
 
@@ -38,4 +38,25 @@ def makeChange(coins, total):
     if memo[total] == total + 1:
         return -1
 
-    return memo[total]
+    return memo[total]"""
+
+def makeChange(coins, total):
+    """Determines the fewest number of coins needed to meet a given
+    amount total when given a pile of coins of different values.
+    """
+    if total <= 0:
+        return 0
+    rem = total
+    coins_count = 0
+    coin_idx = 0
+    sorted_coins = sorted(coins, reverse=True)
+    n = len(coins)
+    while rem > 0:
+        if coin_idx >= n:
+            return -1
+        if rem - sorted_coins[coin_idx] >= 0:
+            rem -= sorted_coins[coin_idx]
+            coins_count += 1
+        else:
+            coin_idx += 1
+    return coins_count
